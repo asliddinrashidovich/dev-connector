@@ -10,7 +10,7 @@ function Header() {
 
     function handleLogout() {
         setLogin(prev => prev ? false : true)
-        navigate('/register')
+        navigate('/')
     }
 
 
@@ -87,7 +87,7 @@ function Header() {
                      <i className="fa-solid fa-user"></i> Dashboard
                     </Link>
                 </li>}
-                {login && <li onClick={handleLogout}>
+                {login && <li onClick={handleLogout} className="cursor-pointer">
                     Logout   
                 </li>}
                 {!login && <li>

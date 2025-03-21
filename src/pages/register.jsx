@@ -17,6 +17,10 @@ function Register() {
     }).then((res) => localStorage.setItem('token', res.data.token))
     setLogin(prev => prev ? false : true)
     navigate("/dashboard")
+    setName('')
+    setEmail('')
+    setPassword('')
+    setConfirmpassword('')
   }
   return (
     <div className="w-full flex justify-center flex-col pt-[130px] max-w-[1000px] mx-auto  px-[50px]">
