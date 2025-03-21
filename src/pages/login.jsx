@@ -1,10 +1,13 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { AppContext } from "../context/context"
 
 function Login() {
+  const {signinHeader, signintitle} = useContext(AppContext)
   return (
     <div className="w-full flex justify-center flex-col pt-[130px] max-w-[1000px] mx-auto">
-        <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">Sign In</h1>
-        <p className="text-[30px] mb-[20px]">Sign Into Your Account</p>
+        <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">{signinHeader}</h1>
+        <p className="text-[30px] mb-[20px]">{signintitle}</p>
         <form className="">
             <input type="email" placeholder="Email Address" className="w-full border-[#c8c8c8] border-[2px] p-[7px] text-[20px] mb-[15px]"/>
             <input type="password" placeholder="Password" className="w-full border-[#c8c8c8] border-[2px] p-[7px] text-[20px] mb-[15px]"/>

@@ -1,10 +1,13 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { AppContext } from "../context/context"
 
 function Register() {
+  const {signupHeader, signupTitle} = useContext(AppContext)
   return (
     <div className="w-full flex justify-center flex-col pt-[130px] max-w-[1000px] mx-auto">
-        <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">Sign Up</h1>
-        <p className="text-[30px] mb-[20px]">Create Your Account</p>
+        <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">{signupHeader}</h1>
+        <p className="text-[30px] mb-[20px]">{signupTitle}</p>
         <form className="">
             <input type="text" placeholder="Name" className="w-full border-[#c8c8c8] border-[2px] p-[7px] text-[20px] mb-[15px]"/>
             <input type="email" placeholder="Email Address" className="w-full border-[#c8c8c8] border-[2px] p-[7px] text-[20px] mb-[3px]"/>
