@@ -1,10 +1,17 @@
 import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../context/context"
 
 function Header() {
-    const {setHeadertext, setHeaderparagraph, setSignuptext, setLogintext, setSignupheader, setSigninheader, setSignuptitle, setSignintitle} = useContext(AppContext)
+    const {setHeadertext, setHeaderparagraph, setSignuptext, setLogintext, setSignupheader, setSigninheader, setSignuptitle, setSignintitle, headerBgColor, setBgcolor, heroColor ,setHerocolor , login, setLogin} = useContext(AppContext)
     const [lang, setLang] = useState('eng')
+    const [dark, setDark] = useState(false)
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        setLogin(prev => prev ? false : true)
+        navigate('/register')
+    }
 
 
     function handleLanguage() {
@@ -38,25 +45,31 @@ function Header() {
         }
     }
 
+    function handleDark() {
+        setDark(prev => prev ? false : true);
+        setBgcolor(prev => prev == '#33383e' ? '#fff' : '#33383e');
+        setHerocolor(prev => prev == '#fff' ? '#33383e' : '#fff')
+    }
+
     useEffect(() => {
         handleLanguage()
     }, [lang])
     return (
-    <header className="w-full fixed bg-[#353a40] py-[10px] z-[99]">
-        <div className="max-w-[calc(100vw-140px)] text-white w-full mx-auto flex justify-between items-center">
+    <header className={`w-full fixed bg-[${headerBgColor}] opacity-80 py-[10px] z-[99]`}>
+        <div className={`max-w-[calc(100vw-140px)]  w-full mx-auto flex justify-between items-center`} style={{color: heroColor}}>
             <Link to={'/'} className="">
                 <span className="text-[30px] font-[700]">DevConnector</span>
             </Link>
             <ul className="flex gap-[20px]">
-                <div className="mr-[10px] cursor-pointer">
-                <i className="fa-solid fa-moon "></i>
-                {/* <i className="fa-solid fa-sun "></i> */}
+                <div className="mr-[10px] cursor-pointer" onClick={handleDark}>
+                    {!dark && <i className="fa-solid fa-moon "></i>}
+                    {dark && <i className="fa-solid fa-sun "></i>}
                 </div>
                 <div className="mr-[50px] ">
                     <select name="lang"  onChange={(e) => {setLang(e.target.value); handleLanguage}} id="lang" className="w-[60px] cursor-pointer">
-                        <option value="uz"  className="bg-[#555]">uz</option>
-                        <option value="eng" className="bg-[#555]">eng</option>
-                        <option value="ru" className="bg-[#555]"> ru</option>
+                        <option value="eng" className="bg-[#555] text-[#fff]">eng</option>
+                        <option value="uz"  className="bg-[#555] text-[#fff]">uz</option>
+                        <option value="ru" className="bg-[#555] text-[#fff]"> ru</option>
                     </select>
                 </div>
                 <li>
@@ -64,16 +77,29 @@ function Header() {
                         Developers
                     </Link>
                 </li>
-                <li>
+                {login && <li>
+                    <Link to={'/posts'}>
+                        Posts
+                    </Link>
+                </li>}
+                {login && <li>
+                    <Link to={'/dashboard'}>
+                     <i className="fa-solid fa-user"></i> Dashboard
+                    </Link>
+                </li>}
+                {login && <li onClick={handleLogout}>
+                    Logout   
+                </li>}
+                {!login && <li>
                     <Link to={'/register'}>
                         Register
                     </Link>
-                </li>
-                <li>
+                </li>}
+                {!login && <li>
                     <Link to={'login'}>
                         Login
                     </Link>
-                </li>
+                </li>}
             </ul>
         </div>
     </header>

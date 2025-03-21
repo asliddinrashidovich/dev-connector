@@ -15,7 +15,7 @@ function Home() {
             </div>
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 brightness-[30%]">
-            <img src="/public/hero.jpg" className="object-cover " alt="hero" />
+            <img src="/hero.jpg"  className="object-cover " alt="hero" />
         </div>
     </div>
   )
