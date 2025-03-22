@@ -55,7 +55,7 @@ function Header() {
         handleLanguage()
     }, [lang])
     return (
-    <header className={`w-full fixed bg-[${headerBgColor}] opacity-80 py-[10px] z-[99]`}>
+    <header className={`w-full fixed opacity-80 py-[10px] z-[99]`} style={{backgroundColor: headerBgColor}}>
         <div className={`max-w-[calc(100vw-140px)]  w-full mx-auto flex justify-between items-center`} style={{color: heroColor}}>
             <Link to={'/'} className="">
                 <span className="text-[30px] font-[700]">DevConnector</span>

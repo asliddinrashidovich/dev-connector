@@ -4,6 +4,7 @@ import axios from 'axios'
 
 function Posts() {
     const {posts, setPosts} = useContext(AppContext)
+    console.log(posts)
     useEffect(() => {
         let token = localStorage.getItem('token')
         axios.get(`https://nt-devconnector.onrender.com/api/posts`, {
