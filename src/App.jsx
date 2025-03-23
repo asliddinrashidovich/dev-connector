@@ -6,6 +6,7 @@ import Layout from "./layout/layout"
 import Developers from "./pages/developer"
 import Posts from "./pages/posts"
 import Dashboard from "./pages/dashboard"
+import DeveloperDetails from "./pages/developer-detail"
 
 function App() {
   const routes = createBrowserRouter(
@@ -15,6 +16,7 @@ function App() {
         <Route path="developer" element={<Developers/>}/> 
         <Route path="posts" element={<Posts/>}/> 
         <Route path="dashboard" element={<Dashboard/>}/> 
+        <Route path="developer/:id" element={<DeveloperDetails/>}/> 
         <Route path="register" element={<Register/>}/> 
         <Route path="login" element={<Login/>}/> 
       </Route>
