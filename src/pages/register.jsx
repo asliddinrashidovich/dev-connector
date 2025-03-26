@@ -15,8 +15,10 @@ function Register() {
       password,
       confirmpassword
     }).then((res) => localStorage.setItem('token', res.data.token))
+
     setLogin(prev => prev ? false : true)
     navigate("/dashboard")
+
     setName('')
     setEmail('')
     setPassword('')
