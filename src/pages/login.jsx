@@ -2,9 +2,10 @@ import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../context/context"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 function Login() {
-  const {signinHeader, signintitle, headerBgColor, heroColor, email, setEmail, password, setPassword, setLogin  } = useContext(AppContext)
+  const {signinHeader, signintitle, headerBgColor, heroColor, email, setEmail, password, setPassword} = useContext(AppContext)
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -12,9 +13,15 @@ function Login() {
     axios.post(`https://nt-devconnector.onrender.com/api/auth`, {
       email,
       password,
-    }).then((res) => localStorage.setItem('token', res.data.token))
-    setLogin(prev => prev ? false : true)
-    navigate("/dashboard")
+    }).then((res) => {
+      navigate("/dashboard")
+      localStorage.setItem('token', res.data.token)
+      toast.success('Wellcome dear user')
+    }).catch(() => {
+      toast('We cannot find this user!, PLease register', {
+        icon: '☹️',
+      })
+    })
     setEmail('')
     setPassword('')
   }

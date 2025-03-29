@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../context/context"
+import { Toaster } from "react-hot-toast"
 
 function Header() {
     const {setHeadertext, setHeaderparagraph, setSignuptext, setLogintext, setSignupheader, setSigninheader, setSignuptitle, setSignintitle, headerBgColor, setBgcolor, heroColor ,setHerocolor , login, setLogin} = useContext(AppContext)
@@ -9,8 +10,9 @@ function Header() {
     const navigate = useNavigate();
 
     function handleLogout() {
-        setLogin(prev => prev ? false : true)
         navigate('/')
+        localStorage.clear()
+        setLogin(false)
     }
 
 
@@ -56,6 +58,7 @@ function Header() {
     }, [lang])
     return (
     <header className={`w-full fixed opacity-80 py-[10px] z-[99]`} style={{backgroundColor: headerBgColor}}>
+        <Toaster/>
         <div className={`max-w-[calc(100vw-140px)]  w-full mx-auto flex justify-between items-center`} style={{color: heroColor}}>
             <Link to={'/'} className="">
                 <span className="text-[30px] font-[700]">DevConnector</span>

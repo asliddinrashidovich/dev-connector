@@ -8,15 +8,24 @@ import Posts from "./pages/posts"
 import Dashboard from "./pages/dashboard"
 import DeveloperDetails from "./pages/developer-detail"
 import NotFound from "./pages/not-found"
+import { useContext, useEffect } from "react"
+import { AppContext } from "./context/context"
 
 function App() {
-  // const navigate = useNavigate();
+  const {setLogin  } = useContext(AppContext)
 
   const isAuth = () => {
-    return localStorage.getItem('token') !== null
+    return localStorage.getItem('token') != null
   }
   function ProtectedRoute({children}) {
-    return isAuth() ? children : <Navigate to={'/register'}/>  
+    const auth = isAuth()
+
+    useEffect(() => {
+      if (auth) {
+        setLogin(true)
+      }
+    }, [auth, children])
+    return children;
   }
   
   const routes = createBrowserRouter(

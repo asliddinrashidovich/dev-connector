@@ -2,9 +2,10 @@ import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../context/context"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 function Register() {
-  const {signupHeader, signupTitle, headerBgColor, name, setName, email, setEmail, password, setPassword, confirmpassword ,setConfirmpassword, setLogin} = useContext(AppContext)
+  const {signupHeader, signupTitle, headerBgColor, name, setName, email, setEmail, password, setPassword, confirmpassword ,setConfirmpassword} = useContext(AppContext)
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -14,11 +15,15 @@ function Register() {
       email,
       password,
       confirmpassword
-    }).then((res) => localStorage.setItem('token', res.data.token))
-
-    setLogin(prev => prev ? false : true)
-    navigate("/dashboard")
-
+    }).then((res) => {
+      navigate("/dashboard")
+      localStorage.setItem('token', res.data.token)
+      toast.success('Wellcome dear new user')
+    }).catch(() => {
+      toast('This user already exists, Please login', {
+        icon: '🙄',
+      })
+    })
     setName('')
     setEmail('')
     setPassword('')

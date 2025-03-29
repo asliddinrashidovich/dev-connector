@@ -1,6 +1,4 @@
 import { createContext, useState } from "react";
-
-
 export const AppContext = createContext();
 
 export function AppProvider({children}) {
@@ -21,7 +19,7 @@ export function AppProvider({children}) {
     const [posts, setPosts] = useState([])
     const [developers, setDevelopers] = useState([])
     const [login, setLogin] = useState(false)
-
+            
     return (
         <AppContext.Provider value={{headerText, setHeadertext, headerParagraph, setHeaderparagraph,signupText, setSignuptext, loginText, setLogintext, signupHeader, setSignupheader, signinHeader, setSigninheader, signupTitle, setSignuptitle, signintitle, setSignintitle, headerBgColor, setBgcolor, heroColor ,setHerocolor, name, setName, email, setEmail, password, setPassword, confirmpassword ,setConfirmpassword, posts, setPosts, login, setLogin ,developers, setDevelopers}}>
             {children}
