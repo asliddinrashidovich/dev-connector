@@ -2,10 +2,10 @@ import { useContext, useEffect } from 'react'
 import { AppContext } from '../context/context'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { ScaleLoader } from 'react-spinners'
 
 function Developers() {
     const {developers, setDevelopers} = useContext(AppContext)
-    console.log(developers)
     useEffect(() => {
         let token = localStorage.getItem('token')
         axios.get(`https://nt-devconnector.onrender.com/api/profile`, {
@@ -16,7 +16,7 @@ function Developers() {
     }, [])
   return (
     <div className='pt-[100px]  px-[50px]'>
-        {developers.map(user => (
+        {developers && developers.map(user => (
             <div key={user._id} className='border py-4 px-[40px] bg-[#f4f4f4] border-[#555] mb-2 flex gap-[50px] items-center' >
                 <div className='flex gap-[10px] flex-col items-center w-[200px]'>
                     <div className='w-[200px] h-[200px] rounded-[100%] overflow-hidden'>
@@ -39,6 +39,11 @@ function Developers() {
                 </div>
             </div>
         ))}
+        {!developers.length && (
+        <div className="max-w-[100%] h-[100vh] flex justify-center items-center">
+          <ScaleLoader color="#17a2b7"/>
+        </div>
+        )}
     </div>
   )
 }

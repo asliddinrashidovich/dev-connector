@@ -10,6 +10,7 @@ import DeveloperDetails from "./pages/developer-detail"
 import NotFound from "./pages/not-found"
 import { useContext, useEffect } from "react"
 import { AppContext } from "./context/context"
+import PostDetails from "./pages/discussion"
 
 function App() {
   const {setLogin  } = useContext(AppContext)
@@ -38,6 +39,7 @@ function App() {
         <Route path="developer/:id" element={<DeveloperDetails/>}/> 
         <Route path="register" element={<Register/>}/> 
         <Route path="*" element={<NotFound/>}/> 
+        <Route path="posts/:id" element={<PostDetails/>}/> 
         <Route path="login" element={<Login/>}/> 
       </Route>
     )

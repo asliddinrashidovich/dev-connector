@@ -12,7 +12,7 @@ function DeveloperDetails() {
   return (
     <>
         {user && (
-             <div className="pt-[100px]  px-[50px]">
+            <div className="pt-[100px]  px-[50px]">
              <Link className="bg-[#f4f4f4] px-[20px] py-[10px] " to={'/developer'}>Back to Profile</Link>
              <div className="w-full bg-[#17a2b7] py-[50px] mt-[40px] flex flex-col items-center mb-[10px]"> 
                  <img src="/user.jpg" alt="user img" className="w-[220px] h-[220px] rounded-[100%] mb-[25px]"/>
@@ -45,7 +45,7 @@ function DeveloperDetails() {
                 </div>
              </div>
              <div className="mt-[30px] h-[30px]"></div>
-         </div>
+            </div>
         )}
     </>
   )
