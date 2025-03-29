@@ -8,9 +8,9 @@ function Register() {
   const {signupHeader, signupTitle, headerBgColor, name, setName, email, setEmail, password, setPassword, confirmpassword ,setConfirmpassword} = useContext(AppContext)
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    axios.post(`https://nt-devconnector.onrender.com/api/users`, {
+    await axios.post(`https://nt-devconnector.onrender.com/api/users`, {
       name,
       email,
       password,

@@ -8,15 +8,15 @@ function Login() {
   const {signinHeader, signintitle, headerBgColor, heroColor, email, setEmail, password, setPassword} = useContext(AppContext)
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    axios.post(`https://nt-devconnector.onrender.com/api/auth`, {
+    await axios.post(`https://nt-devconnector.onrender.com/api/auth`, {
       email,
       password,
     }).then((res) => {
-      navigate("/dashboard")
       localStorage.setItem('token', res.data.token)
       toast.success('Wellcome dear user')
+      navigate("/dashboard")
     }).catch(() => {
       toast('We cannot find this user!, PLease register', {
         icon: '☹️',

@@ -1,25 +1,31 @@
-import { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../context/context'
+import { useEffect, useState } from 'react'
+
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import { ScaleLoader } from 'react-spinners'
 
 function Posts() {
-    const {posts, setPosts} = useContext(AppContext)
+    const [posts, setPosts] = useState([])
     const [text, setText] = useState('')
-    const [meid, setMeid] = useState()
-    const [textPost, setTextpost] = useState(false)
-    const [textPostdelet, setTextpostdelet] = useState(false)
+    const [meid, setMeid] = useState();
     let token = localStorage.getItem('token')
     
     useEffect(() => {
-        axios.get(`https://nt-devconnector.onrender.com/api/posts`, {
-            headers: {
-                "x-auth-token": token,
+        const getPostsData = async () => {
+            try {
+                await axios.get(`https://nt-devconnector.onrender.com/api/posts`, {
+                    headers: {
+                        "x-auth-token": token,
+                    }
+                }).then((res) => setPosts(res.data))
             }
-        }).then((res) => setPosts(res.data))
-    }, [textPost, textPostdelet])
+            catch(err) {
+                console.log(err)
+            }
+        }
+        getPostsData()
+    }, [posts])
 
     const getAuth = async () => {
         await axios.get(`https://nt-devconnector.onrender.com/api/auth`, {
@@ -28,21 +34,24 @@ function Posts() {
             }
         }).then((res) => setMeid(res.data._id))
     }
-    getAuth()
+    useEffect(() => {
+        getAuth()
+    }, [])
 
     // delete
     const handleDelete = async (id) => {
-        axios.delete(`https://nt-devconnector.onrender.com/api/posts/${id}`, {
+        await axios.delete(`https://nt-devconnector.onrender.com/api/posts/${id}`, {
             headers: {
                 "x-auth-token": token,
             } 
+        }).then(() => {
+            toast.success('Your post successfuly deleted')
         })
-        setTextpostdelet(prev => !prev)
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        axios.post(`https://nt-devconnector.onrender.com/api/posts`, {text}, {
+        await axios.post(`https://nt-devconnector.onrender.com/api/posts`, {text}, {
             headers: {
                 "x-auth-token": token,
             }
@@ -54,8 +63,25 @@ function Posts() {
           })
         })
         setText('')
-        setTextpost(prev => !prev)
-      }
+    }
+
+    async function handleLike(post_id) {
+        await axios.put(`https://nt-devconnector.onrender.com/api/posts/like/${post_id}`, {}, {
+            headers: {
+                "x-auth-token": token,
+            }
+        }).then((res) => {
+            console.log(res)
+        }).catch(() => {
+          toast('We cannot post your commit', {
+            icon: '☹️',
+          })
+        })
+    }
+    console.log(posts)
+    function handleDislike() {
+
+    }
   return (
     <>
         {posts.length && <div className='pt-[100px]  px-[50px]'>
@@ -71,7 +97,7 @@ function Posts() {
                 <div key={post._id} className='border py-4 px-[40px] border-[#555] mb-2 flex gap-[50px] items-center' >
                     <div className='flex gap-[10px] flex-col items-center w-[200px]'>
                         <div className='w-[100px] h-[100px] rounded-[100%] overflow-hidden'>
-                            <img className='mb-[20px]' src="/user.jpg" alt="user" />
+                            <img className='mb-[20px]' src={post.avatar} alt={post.text}/>
                         </div>
                         <p className='text-center text-[22px] font-[600] text-[#17a2b7]'>{post.name}</p>
                     </div>
@@ -79,10 +105,10 @@ function Posts() {
                         <p className='mb-[20px]'>{post.text}</p>
                         <p className='mb-[20px]'>{post.date}</p>
                         <div className='flex gap-[10px] items-center'>
-                            <button className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
-                                <i className="fa-solid fa-thumbs-up"></i>
+                            <button onClick={() => handleLike(post._id)} className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
+                                <i className="fa-solid fa-thumbs-up"></i> {post.likes.length}
                             </button>
-                            <button className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
+                            <button onClick={() => handleDislike(post._id)} className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
                                 <i className="fa-solid fa-thumbs-down"></i>
                             </button>
                             <Link to={`/posts/${post._id}`}  className='py-[10px] px-[20px] text-white bg-[#17a2b7] cursor-pointer'>Discussion</Link>
