@@ -8,6 +8,7 @@ function Posts() {
     const [text, setText] = useState('')
     const [meid, setMeid] = useState()
     const [textPost, setTextpost] = useState(false)
+    const [textPostdelet, setTextpostdelet] = useState(false)
     let token = localStorage.getItem('token')
     
     useEffect(() => {
@@ -16,7 +17,7 @@ function Posts() {
                 "x-auth-token": token,
             }
         }).then((res) => setPosts(res.data))
-    }, [textPost])
+    }, [textPost, textPostdelet])
 
     const getAuth = async () => {
         await axios.get(`https://nt-devconnector.onrender.com/api/auth`, {
@@ -34,7 +35,7 @@ function Posts() {
                 "x-auth-token": token,
             } 
         })
-        setTextpost(true)
+        setTextpostdelet(prev => !prev)
     }
 
     function handleSubmit(e) {
@@ -51,9 +52,8 @@ function Posts() {
           })
         })
         setText('')
-        setTextpost(true)
+        setTextpost(prev => !prev)
       }
-      console.log(meid)
   return (
     <div className='pt-[100px]  px-[50px]'>
         <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">Posts</h1>
