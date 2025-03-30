@@ -11,7 +11,11 @@ import NotFound from "./pages/not-found"
 import { useContext, useEffect } from "react"
 import { AppContext } from "./context/context"
 import PostDetails from "./pages/discussion"
+import PropTypes from "prop-types"
 
+App.propTypes = {
+  children: PropTypes.node.isRequired
+}
 function App() {
   const {setLogin  } = useContext(AppContext)
 
@@ -26,7 +30,11 @@ function App() {
         setLogin(true)
       }
     }, [auth, children])
-    return children;
+    if(auth) {
+      return children;
+    } else {
+      return <NotFound/>
+    }
   }
   
   const routes = createBrowserRouter(

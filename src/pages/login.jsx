@@ -18,7 +18,7 @@ function Login() {
       toast.success('Wellcome dear user')
       navigate("/dashboard")
     }).catch(() => {
-      toast('We cannot find this user!, PLease register', {
+      toast('We cannot find this user!, PLease try again or register', {
         icon: '☹️',
       })
     })

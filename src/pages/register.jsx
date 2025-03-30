@@ -20,7 +20,7 @@ function Register() {
       localStorage.setItem('token', res.data.token)
       toast.success('Wellcome dear new user')
     }).catch(() => {
-      toast('This user already exists, Please login', {
+      toast('This user already exists, Please try again or login', {
         icon: '🙄',
       })
     })

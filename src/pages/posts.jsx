@@ -36,7 +36,7 @@ function Posts() {
     }
     useEffect(() => {
         getAuth()
-    }, [])
+    }, [posts])
 
     // delete
     const handleDelete = async (id) => {
@@ -72,15 +72,9 @@ function Posts() {
             }
         }).then((res) => {
             console.log(res)
-        }).catch(() => {
-          toast('We cannot post your commit', {
-            icon: '☹️',
-          })
+        }).catch((err) => {
+            console.log(err)
         })
-    }
-    console.log(posts)
-    function handleDislike() {
-
     }
   return (
     <>
@@ -108,7 +102,7 @@ function Posts() {
                             <button onClick={() => handleLike(post._id)} className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
                                 <i className="fa-solid fa-thumbs-up"></i> {post.likes.length}
                             </button>
-                            <button onClick={() => handleDislike(post._id)} className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
+                            <button  className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
                                 <i className="fa-solid fa-thumbs-down"></i>
                             </button>
                             <Link to={`/posts/${post._id}`}  className='py-[10px] px-[20px] text-white bg-[#17a2b7] cursor-pointer'>Discussion</Link>

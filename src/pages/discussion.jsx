@@ -71,6 +71,17 @@ function PostDetails() {
       })
       setText('')
     }
+    async function handleLike() {
+      await axios.put(`https://nt-devconnector.onrender.com/api/posts/like/${id}`, {}, {
+          headers: {
+              "x-auth-token": token,
+          }
+      }).then((res) => {
+          console.log(res)
+      }).catch((err) => {
+          console.log(err)
+      })
+  }
   return (
     <div className='pt-[100px]  px-[50px]'>
       {user && <div>
@@ -86,8 +97,8 @@ function PostDetails() {
               <p className='mb-[20px]'>{user.text}</p>
               <p className='mb-[20px]'>{user.date}</p>
               <div className='flex gap-[10px] items-center'>
-                  <button className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
-                      <i className="fa-solid fa-thumbs-up"></i>
+                  <button onClick={handleLike} className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
+                      <i className="fa-solid fa-thumbs-up"></i>  {user.likes.length}
                   </button>
                   <button className='cursor-pointer w-[70px] bg-[#f4f4f4] py-[10px]'>
                       <i className="fa-solid fa-thumbs-down"></i>
