@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react"
 import { AppContext } from "./context/context"
 import PostDetails from "./pages/discussion"
 import PropTypes from "prop-types"
+import CreateProfile from "./pages/create-profile"
 
 App.propTypes = {
   children: PropTypes.node.isRequired
@@ -46,6 +47,7 @@ function App() {
         <Route path="dashboard" element={<ProtectedRoute> <Dashboard/></ProtectedRoute>}/> 
         <Route path="developer/:id" element={<DeveloperDetails/>}/> 
         <Route path="register" element={<Register/>}/> 
+        <Route path="create-profile" element={<CreateProfile/>}/> 
         <Route path="*" element={<NotFound/>}/> 
         <Route path="posts/:id" element={<PostDetails/>}/> 
         <Route path="login" element={<Login/>}/> 
