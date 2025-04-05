@@ -13,6 +13,9 @@ import { AppContext } from "./context/context"
 import PostDetails from "./pages/discussion"
 import PropTypes from "prop-types"
 import CreateProfile from "./pages/create-profile"
+import EditProfile from "./pages/edit-profile"
+import AddExperience from "./pages/add-experience"
+import AddEducation from "./pages/add-education"
 
 App.propTypes = {
   children: PropTypes.node.isRequired
@@ -48,6 +51,9 @@ function App() {
         <Route path="developer/:id" element={<DeveloperDetails/>}/> 
         <Route path="register" element={<Register/>}/> 
         <Route path="create-profile" element={<CreateProfile/>}/> 
+        <Route path="edit-profile" element={<EditProfile/>}/> 
+        <Route path="add-experience" element={<AddExperience/>}/> 
+        <Route path="add-education" element={<AddEducation/>}/> 
         <Route path="*" element={<NotFound/>}/> 
         <Route path="posts/:id" element={<PostDetails/>}/> 
         <Route path="login" element={<Login/>}/> 
