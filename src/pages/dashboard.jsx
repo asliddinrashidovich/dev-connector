@@ -10,19 +10,21 @@ function Dashboard() {
   const [profileData, setProfileData] = useState()
   let token = localStorage.getItem('token')
 
-  const getProfile = async () => {
-      try {
-          await axios.get(`https://nt-devconnector.onrender.com/api/auth`, {
-              headers: {
-                  "x-auth-token": token,
-              }
-          }).then((res) => setUserData(res.data))
-      }
-      catch(err) {
-          console.log(err)
-      }
-  }
-  getProfile()
+  useEffect(() => {
+    const getProfile = async () => {
+        try {
+            await axios.get(`https://nt-devconnector.onrender.com/api/auth`, {
+                headers: {
+                    "x-auth-token": token,
+                }
+            }).then((res) => setUserData(res.data))
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+    getProfile()
+  }, [])
 
   useEffect(() => {
     const getProfileMe = async () => {
@@ -47,7 +49,7 @@ function Dashboard() {
 
   return (
     <>
-        {(userData && profileData) &&  (
+        {userData &&  (
             <div className="w-full flex justify-center flex-col pt-[130px] max-w-[1000px] mx-auto  px-[50px]" style={{backgroundColor: heroColor}}>
                 <h1 className="text-[#17a2b7] text-[50px] font-[700] mb-[20px]">Dashboard</h1>
                 <p className="text-[30px] mb-[20px] " style={{color: headerBgColor}}> <i className="fa-solid fa-user"></i> Welcome {userData.name}</p>
@@ -112,7 +114,7 @@ function Dashboard() {
                 )}
             </div>)
         }
-        {!(userData && profileData) && (
+        {!userData && (
         <div className="max-w-[100%] h-[100vh] flex justify-center items-center">
           <ScaleLoader color="#17a2b7"/>
         </div>)}
